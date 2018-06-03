@@ -1,7 +1,7 @@
 package main
 
 import (
-	"net/http"
+	"app/application/routes"
 
 	"github.com/labstack/echo"
 	"github.com/labstack/echo/middleware"
@@ -14,15 +14,10 @@ func main() {
 	// Middleware
 	e.Use(middleware.Logger())
 	e.Use(middleware.Recover())
+	e.Pre(middleware.AddTrailingSlash())
 
-	// Routes
-	e.GET("/", hello)
+	routes.NewAuthentication(e).Handler()
 
 	// Start server
 	e.Logger.Fatal(e.Start(":1323"))
-}
-
-// Handler
-func hello(c echo.Context) error {
-	return c.String(http.StatusOK, "Hello, World!")
 }
