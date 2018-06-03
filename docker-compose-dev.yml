@@ -1,8 +1,7 @@
 version: '2'
 services:
-  golang:
+  app:
     image: go-tools
-    env_file: .env
     ports:
       - 7006:1323
     volumes:
