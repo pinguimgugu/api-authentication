@@ -1,4 +1,4 @@
-# Find user by credentials in multiples repositories using golang concurrency
+# Simple api to authenticte user find by credentials in multiples repositories using golang concurrency
 A basic example is to use golang concurrency, how to create a simple mechanism of authentication using multiple repositories to find user by credentials with clean code and easyly grow up
 
 Make sure already have been installed 
