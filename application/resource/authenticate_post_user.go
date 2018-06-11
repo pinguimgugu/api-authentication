@@ -9,6 +9,7 @@ import (
 
 // AuthenticatePostUser struct
 type AuthenticatePostUser struct {
+	UserRepository domain.UserRepository
 }
 
 // Handle method
@@ -19,5 +20,11 @@ func (a *AuthenticatePostUser) Handler(c echo.Context) error {
 		return c.NoContent(http.StatusBadRequest)
 	}
 
-	return c.JSON(http.StatusOK, user)
+	userMap := a.UserRepository.GetByUserAndPassword(user.User, user.Password)
+
+	if _, ok := userMap["username"]; !ok {
+		return c.NoContent(http.StatusNotFound)
+	}
+
+	return c.JSON(http.StatusOK, userMap)
 }

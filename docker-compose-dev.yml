@@ -4,10 +4,21 @@ services:
     image: go-tools
     ports:
       - 7006:1323
+    env_file: 
+      - .env
     volumes:
       - ./:/go/src/app/
     working_dir: /go/src/app/
     command: go run main.go
+  mongo.local:
+    image: mongo:latest
+    environment:
+      -MONGO_INITDB_ROOT_USERNAME: root
+      -MONGO_INITDB_ROOT_PASSWORD: root
+    ports:
+      - 27017:27017
+    volumes:
+      - /app/hdp/mongo/data:/data/db
   dep:
     image: go-tools
     volumes:
