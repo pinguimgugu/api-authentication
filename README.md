@@ -17,3 +17,14 @@ Start application
 
   # build base image with golang and dependencies manager dep
   ./application build
+
+# Just make this requisition to authenticate user
+curl -X POST \
+  http://localhost:7006/authenticate/user/ \
+  -H 'Cache-Control: no-cache' \
+  -H 'Content-Type: application/json' \
+  -H 'Postman-Token: 874f52e0-5bb9-4c55-8cf8-9dd3789c963e' \
+  -d '{
+    "user":"example",
+    "password":"example"  
+  }'
