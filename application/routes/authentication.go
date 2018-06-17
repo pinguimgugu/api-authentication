@@ -2,23 +2,27 @@ package routes
 
 import (
 	"app/application/resource"
-	"app/infrastructure/factory"
+	"app/domain"
 
 	"github.com/labstack/echo"
 )
 
+// Authentication struct
 type Authentication struct {
-	echo *echo.Echo
+	echo                  *echo.Echo
+	authenticationService domain.AuthenticationService
 }
 
-func NewAuthentication(e *echo.Echo) *Authentication {
-	return &Authentication{e}
+//NewAuthentication func
+func NewAuthentication(e *echo.Echo, authService domain.AuthenticationService) *Authentication {
+	return &Authentication{e, authService}
 }
 
+// Handler
 func (a *Authentication) Handler() {
 
 	a.echo.POST("/authenticate/user/", func(c echo.Context) error {
-		action := resource.AuthenticatePostUser{factory.GetUserRepository()}
+		action := resource.AuthenticatePostUser{a.authenticationService}
 
 		return action.Handler(c)
 	})

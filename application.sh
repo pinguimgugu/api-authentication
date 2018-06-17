@@ -4,7 +4,7 @@ function mongo {
     docker-compose -f docker-compose-dev.yml up -d mongo.local   
     sleep 5
     docker exec -it app_mongo.local_1 mongo auth --eval "db.users.remove({})"
-    docker exec -it app_mongo.local_1 mongo auth --eval "db.users.insert({'username':'example', 'password':'example'})"
+    docker exec -it app_mongo.local_1 mongo auth --eval "db.users.insert({'username':'example', 'password':'example', 'id':1})"
 }
 
 function dep {

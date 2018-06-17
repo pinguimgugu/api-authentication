@@ -1,6 +1,7 @@
 package repository
 
 import (
+	"app/domain"
 	"app/infrastructure/mongodb"
 
 	"gopkg.in/mgo.v2/bson"
@@ -12,10 +13,10 @@ type User struct {
 }
 
 // GetByUserAndPassword method
-func (u *User) GetByUserAndPassword(user, password string) map[string]string {
-	userMap := make(map[string]string)
+func (u *User) GetByUserAndPassword(user, password string) (*domain.LoggedUser, error) {
+	userMap := new(domain.LoggedUser)
 
-	u.Connection.Db.C("users").
+	err := u.Connection.Db.C("users").
 		Find(
 			bson.M{
 				"username": user,
@@ -23,5 +24,9 @@ func (u *User) GetByUserAndPassword(user, password string) map[string]string {
 			}).
 		One(&userMap)
 
-	return userMap
+	if err != nil {
+		return nil, err
+	}
+
+	return userMap, nil
 }
