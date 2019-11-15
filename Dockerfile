@@ -1,3 +1,3 @@
-FROM golang:1.8
+FROM golang:latest
 
 RUN go get github.com/golang/dep/cmd/dep
